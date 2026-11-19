@@ -104,25 +104,21 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <div className="bg-white">
       {/* Spacer prevents layout shift when navbar switches to fixed on scroll */}
-      {isScrolled && <div className="h-[80px]" aria-hidden="true" />}
+      {isScrolled && <div className="h-[68px]" aria-hidden="true" />}
 
       <header
-        className={`w-full transition-[transform,opacity] duration-200 ease-out px-4 sm:px-6 lg:px-8 ${
-          isScrolled ? 'fixed top-3 left-0 right-0 z-50' : 'relative pt-3 pb-1 z-40'
+        className={`w-full transition-[transform,opacity] duration-200 ease-out border-b border-[#E8EDF2] ${
+          isScrolled
+            ? 'fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md'
+            : 'relative z-40 bg-white'
         } ${
           isHidden
-            ? '-translate-y-[120%] opacity-0 pointer-events-none'
+            ? '-translate-y-full opacity-0 pointer-events-none'
             : 'translate-y-0 opacity-100'
         }`}
       >
-        <div
-          className={`max-w-[1280px] mx-auto rounded-2xl border transition-shadow duration-200 ${
-            isScrolled
-              ? 'bg-white/95 backdrop-blur-md border-[#DCE4EC] shadow-[0_12px_28px_-8px_rgba(15,23,42,0.14),0_4px_10px_-4px_rgba(15,23,42,0.06)]'
-              : 'bg-white border-[#E8EDF2] shadow-[0_2px_8px_-2px_rgba(15,23,42,0.05)]'
-          }`}
-        >
-          <div className="px-4 sm:px-6 h-16 flex items-center justify-between gap-4 lg:gap-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-[68px] flex items-center justify-between gap-4 lg:gap-8">
             {/* Zone 1: Top Logo */}
             <a
               href="#top"

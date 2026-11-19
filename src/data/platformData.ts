@@ -16,6 +16,7 @@ export interface ArchitecturePillar {
   label: string;
   tier: 'application' | 'intelligence' | 'ecosystem';
   targetCategoryId: string;
+  layerConnection: string;
 }
 
 export interface PlatformCategorySummary {
@@ -77,42 +78,42 @@ export const APPLICATION_LAYER_ITEMS: ApplicationLayerMetric[] = [
     label: 'Care',
     countLabel: '34 modules',
     targetCategoryId: 'category-01',
-    description: 'Care delivery, navigation, and clinical workflows',
+    description: 'Clinic workspaces, case plans, and provider routing',
   },
   {
     id: 'app-rpm',
     label: 'RPM',
     countLabel: '3 modules',
     targetCategoryId: 'category-02',
-    description: 'Remote patient monitoring and vitals intelligence',
+    description: 'Between-visit vitals and threshold alerting',
   },
   {
     id: 'app-engage',
     label: 'Engage',
     countLabel: '29 modules',
     targetCategoryId: 'category-03',
-    description: 'Engagement, content, rewards, and wellness',
+    description: 'Omnichannel outreach, lifestyle tools, and loyalty',
   },
   {
     id: 'app-insurance',
     label: 'Insurance',
     countLabel: '14 modules',
     targetCategoryId: 'category-04',
-    description: 'Insurer workflows, CRM, and member operations',
+    description: 'Policyholder CRM and service resolution',
   },
   {
     id: 'app-pharma',
     label: 'Pharma',
     countLabel: '24 modules',
     targetCategoryId: 'category-05',
-    description: 'PSP, PAP, acquisition, and specialty therapy analytics',
+    description: 'Therapy education and medicine fulfillment',
   },
   {
     id: 'app-ai',
     label: 'AI',
     countLabel: '26 modules',
     targetCategoryId: 'category-06',
-    description: 'Data platforms and clinical AI engines',
+    description: 'Data pipelines, camera vitals, and clinical copilots',
   },
 ];
 
@@ -127,13 +128,62 @@ export const FOUNDATION_LAYER_ITEMS: string[] = [
 ];
 
 export const PLATFORM_ARCHITECTURE_PILLARS: ArchitecturePillar[] = [
-  { id: 'arch-care', label: 'Care', tier: 'application', targetCategoryId: 'category-01' },
-  { id: 'arch-remote', label: 'Remote', tier: 'application', targetCategoryId: 'category-02' },
-  { id: 'arch-engagement', label: 'Engagement', tier: 'application', targetCategoryId: 'category-03' },
-  { id: 'arch-insurance', label: 'Insurance', tier: 'application', targetCategoryId: 'category-04' },
-  { id: 'arch-pharma', label: 'Pharma', tier: 'application', targetCategoryId: 'category-05' },
-  { id: 'arch-data-ai', label: 'Data & AI', tier: 'intelligence', targetCategoryId: 'category-06' },
-  { id: 'arch-platform', label: 'Platform', tier: 'ecosystem', targetCategoryId: 'category-07' },
+  {
+    id: 'arch-care',
+    label: 'Care',
+    tier: 'application',
+    targetCategoryId: 'category-01',
+    layerConnection:
+      'Operates in Layer 01 atop shared governance and triage routing, while streaming clinical encounters into Layer 02 for AI-assisted workflows.',
+  },
+  {
+    id: 'arch-remote',
+    label: 'Remote',
+    tier: 'application',
+    targetCategoryId: 'category-02',
+    layerConnection:
+      'Bridges Layer 03 connected device streams into Layer 01 clinician command centers, routing threshold alerts through Layer 02 intelligence.',
+  },
+  {
+    id: 'arch-engagement',
+    label: 'Engagement',
+    tier: 'application',
+    targetCategoryId: 'category-03',
+    layerConnection:
+      'Connects Layer 01 outreach and wellness journeys with Layer 02 behavioral signals and Layer 03 external system integrations.',
+  },
+  {
+    id: 'arch-insurance',
+    label: 'Insurance',
+    tier: 'application',
+    targetCategoryId: 'category-04',
+    layerConnection:
+      'Links Layer 01 policyholder CRM and case resolution with Layer 02 enterprise analytics and Layer 04 tenant access controls.',
+  },
+  {
+    id: 'arch-pharma',
+    label: 'Pharma',
+    tier: 'application',
+    targetCategoryId: 'category-05',
+    layerConnection:
+      'Connects Layer 01 patient education and order fulfillment to Layer 02 data pipelines and Layer 03 partner integrations.',
+  },
+  {
+    id: 'arch-data-ai',
+    label: 'Data & AI',
+    tier: 'intelligence',
+    targetCategoryId: 'category-06',
+    layerConnection:
+      'Sits at Layer 02 as the intelligence bridge — unifying Layer 01 clinical and engagement records with Layer 03 device streams.',
+  },
+  {
+    id: 'arch-platform',
+    label: 'Platform',
+    tier: 'ecosystem',
+    targetCategoryId: 'category-07',
+    layerConnection:
+      'Anchors Layers 03 and 04 — exposing APIs, device connectors, and enterprise integrations upward while governing every tenant.',
+  },
 ];
 
 export const PLATFORM_CATEGORIES: PlatformCategorySummary[] = [
@@ -142,7 +192,8 @@ export const PLATFORM_CATEGORIES: PlatformCategorySummary[] = [
     number: 'Category 01',
     shortLabel: 'Care Delivery',
     title: 'Care Delivery & Clinical Operations',
-    description: 'Care delivery, navigation, and clinical workflows for providers and care teams.',
+    description:
+      'Equips providers and care teams to run daily clinical operations, guide patient journeys, and coordinate multi-provider care.',
     moduleCountLabel: '14 modules',
     subgroupCountLabel: '4 subgroups',
   },
@@ -151,7 +202,8 @@ export const PLATFORM_CATEGORIES: PlatformCategorySummary[] = [
     number: 'Category 02',
     shortLabel: 'Remote Monitoring',
     title: 'Remote Monitoring & Vitals',
-    description: 'Continuous remote patient monitoring across vitals, devices, and care protocols.',
+    description:
+      'Extends clinical oversight beyond facility visits by capturing patient vitals and managing threshold alerts for high-risk cohorts.',
     moduleCountLabel: '3 modules',
     subgroupCountLabel: '1 subgroup',
   },
@@ -160,7 +212,8 @@ export const PLATFORM_CATEGORIES: PlatformCategorySummary[] = [
     number: 'Category 03',
     shortLabel: 'Engagement',
     title: 'Engagement, Experience & Wellness',
-    description: 'Member engagement, content, rewards, and preventive wellness journeys.',
+    description:
+      'Drives sustained participation and preventive health through targeted programs, lifestyle journeys, and auditable rewards.',
     moduleCountLabel: '29 modules',
     subgroupCountLabel: '6 subgroups',
   },
@@ -169,7 +222,8 @@ export const PLATFORM_CATEGORIES: PlatformCategorySummary[] = [
     number: 'Category 04',
     shortLabel: 'Insurance',
     title: 'Insurance Ecosystem',
-    description: 'Insurance workflows, CRM, and member operations for health insurers.',
+    description:
+      'Supports health insurers with unified member CRM, agent tracking, and end-to-end case resolution across policy lifecycles.',
     moduleCountLabel: '1 module',
     subgroupCountLabel: '1 subgroup',
   },
@@ -178,7 +232,8 @@ export const PLATFORM_CATEGORIES: PlatformCategorySummary[] = [
     number: 'Category 05',
     shortLabel: 'Pharma & PSP',
     title: 'Pharma & Patient Support Ecosystem',
-    description: 'PSP, PAP, acquisition, and analytics for pharma and specialty therapies.',
+    description:
+      'Enables pharmaceutical teams to deliver patient support programs spanning disease education and medicine order fulfillment.',
     moduleCountLabel: '2 modules',
     subgroupCountLabel: '2 subgroups',
   },
@@ -187,7 +242,8 @@ export const PLATFORM_CATEGORIES: PlatformCategorySummary[] = [
     number: 'Category 06',
     shortLabel: 'Data & AI',
     title: 'Data, AI & Automation',
-    description: 'Data platforms and AI engines powering intelligence across GOQii HealthEngage.',
+    description:
+      'Consolidates enterprise health records and powers AI capabilities across camera-based vitals, clinical copilots, and medical imaging.',
     moduleCountLabel: '5 modules',
     subgroupCountLabel: '3 subgroups',
   },
@@ -196,7 +252,8 @@ export const PLATFORM_CATEGORIES: PlatformCategorySummary[] = [
     number: 'Category 07',
     shortLabel: 'Platform Layer',
     title: 'Platform & Ecosystem Layer',
-    description: 'APIs, devices, integrations, and control planes for the broader ecosystem.',
+    description:
+      'Provides the API management, third-party device hub, enterprise connectors, and multi-tenant control plane that unite the suite.',
     moduleCountLabel: '7 modules',
     subgroupCountLabel: '4 subgroups',
   },
@@ -209,7 +266,7 @@ export const MODULE_ARCHITECTURE: CategoryArchitectureData[] = [
     shortLabel: '01 Care Delivery',
     title: 'Care Delivery & Clinical Operations',
     description:
-      'Clinical operations across care teams, providers, and facilities — coordinated by shared data, identity, and governance.',
+      'Fourteen modules across four subgroups covering care management, clinic operations, clinical data migration, and provider referral.',
     totalCountLabel: '14 modules · 4 subgroups',
     subgroups: [
       {
@@ -323,7 +380,7 @@ export const MODULE_ARCHITECTURE: CategoryArchitectureData[] = [
     shortLabel: '02 Remote Monitoring',
     title: 'Remote Monitoring & Vitals',
     description:
-      'Continuous vitals capture, trend intelligence, and clinician-grade monitoring for chronic, post-acute, and high-risk cohorts.',
+      'Three RPM Platform modules covering continuous vitals tracking, threshold management, and cohort command.',
     totalCountLabel: '3 modules · 1 subgroup',
     subgroups: [
       {
@@ -358,7 +415,7 @@ export const MODULE_ARCHITECTURE: CategoryArchitectureData[] = [
     shortLabel: '03 Engagement',
     title: 'Engagement, Experience & Wellness',
     description:
-      'Personalized engagement, content, rewards, and preventive programs that drive sustained behaviour change across populations.',
+      'Twenty-nine modules across six subgroups covering engagement platforms, population programs, rewards, preventive lifestyle, corporate health, and messaging.',
     totalCountLabel: '29 modules · 6 subgroups',
     subgroups: [
       {
@@ -578,7 +635,7 @@ export const MODULE_ARCHITECTURE: CategoryArchitectureData[] = [
     shortLabel: '04 Insurance',
     title: 'Insurance Ecosystem',
     description:
-      'Insurer-grade workflows across member operations, underwriting signals, and CRM.',
+      'Insurance Operations module providing unified member and agent relationship tracking through case resolution.',
     totalCountLabel: '1 module · 1 subgroup',
     subgroups: [
       {
@@ -602,7 +659,7 @@ export const MODULE_ARCHITECTURE: CategoryArchitectureData[] = [
     shortLabel: '05 Pharma & PSP',
     title: 'Pharma & Patient Support Ecosystem',
     description:
-      'Comprehensive pharma programs for patient support, adherence, access, acquisition, and outcome analytics.',
+      'Two modules across Pharma Engagement & Acquisition and Pharmacy & ePharmacy workflows.',
     totalCountLabel: '2 modules · 2 subgroups',
     subgroups: [
       {
@@ -638,7 +695,7 @@ export const MODULE_ARCHITECTURE: CategoryArchitectureData[] = [
     shortLabel: '06 Data & AI',
     title: 'Data, AI & Automation',
     description:
-      'Unified data and AI substrate — from ingestion and migration to clinical-grade AI engines.',
+      'Five modules across Data Platforms, AI Engines, and Clinical AI for lakehouse storage, migration, and AI-assisted care.',
     totalCountLabel: '5 modules · 3 subgroups',
     subgroups: [
       {
@@ -698,7 +755,7 @@ export const MODULE_ARCHITECTURE: CategoryArchitectureData[] = [
     shortLabel: '07 Platform Layer',
     title: 'Platform & Ecosystem Layer',
     description:
-      'Foundational layer for APIs, device interoperability, integrations, and platform orchestration.',
+      'Seven modules across API management, connected devices, enterprise integrations, and platform control.',
     totalCountLabel: '7 modules · 4 subgroups',
     subgroups: [
       {
@@ -775,40 +832,40 @@ export const MODULE_ARCHITECTURE: CategoryArchitectureData[] = [
 
 export const WHY_CAPABILITIES: CapabilityItem[] = [
   {
-    id: 'api-first',
-    title: 'API-first architecture',
+    id: 'care-orchestration',
+    title: 'Connected healthcare operations',
     description:
-      'Every capability is a composable API — FHIR, HL7, webhooks, and SDKs for modern builds.',
+      'Coordinate providers, coaches, clinics, and support teams in one operational flow from initial intake through ongoing care.',
   },
   {
     id: 'device-interop',
-    title: 'Device interoperability',
+    title: 'Better visibility across care journeys',
     description:
-      'Certified medical and lifestyle device integration with a canonical data model.',
-  },
-  {
-    id: 'care-orchestration',
-    title: 'Care orchestration',
-    description:
-      'Longitudinal journeys across providers, coaches, and automation with policy controls.',
-  },
-  {
-    id: 'ai-workflows',
-    title: 'AI-powered workflows',
-    description:
-      'Embedded AI for triage, vitals, adherence, and clinical decision support.',
-  },
-  {
-    id: 'enterprise-security',
-    title: 'Enterprise security',
-    description:
-      'Multi-tenant isolation, granular RBAC, encryption, and comprehensive audit trails.',
+      'Bring together device vitals, clinical records, and member interactions so care teams spot changes early between visits.',
   },
   {
     id: 'modular-deployment',
-    title: 'Modular deployment',
+    title: 'Scalable enterprise workflows',
     description:
-      'Adopt modules independently or as a full platform — cloud, hybrid, or region-bound.',
+      'Start with targeted programs and expand across cohorts, facilities, or regions without rebuilding underlying systems.',
+  },
+  {
+    id: 'api-first',
+    title: 'Connected data and integrations',
+    description:
+      'Sync clinical, HRIS, device, and partner data into your existing enterprise tools so teams act on unified records.',
+  },
+  {
+    id: 'ai-workflows',
+    title: 'Actionable intelligence',
+    description:
+      'Turn incoming vitals, survey feedback, and clinical history into urgent case triage, proactive outreach, and faster clinical decisions.',
+  },
+  {
+    id: 'enterprise-security',
+    title: 'Governed multi-tenant scale',
+    description:
+      'Support distinct business units, partners, and geographies with tenant isolation, administrative controls, and auditable tracking.',
   },
 ];
 

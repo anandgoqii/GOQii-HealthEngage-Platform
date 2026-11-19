@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { ArrowRight, BrainCircuit, Layers } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Cable, Layers, Shield } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
 import {
   PLATFORM_ARCHITECTURE_PILLARS,
   PLATFORM_CATEGORIES,
 } from '../data/platformData';
-import { CATEGORY_VISUALS, MODULE_COLOR_THEMES } from '../data/moduleVisuals';
+import {
+  CATEGORY_VISUALS,
+  SECTION_VISUALS,
+} from '../data/moduleVisuals';
 
 export const PlatformArchitectureSection: React.FC = () => {
   const [activePillarId, setActivePillarId] = useState<string>('arch-care');
+  const prefersReducedMotion = useReducedMotion();
+
+  const SectionIcon = SECTION_VISUALS.architecture;
 
   const applicationPillars = PLATFORM_ARCHITECTURE_PILLARS.filter(
     (p) => p.tier === 'application'
@@ -31,70 +38,60 @@ export const PlatformArchitectureSection: React.FC = () => {
   );
   const colCenters = [100, 300, 500, 700, 900];
   const activeTraceX = activePillarIndex >= 0 ? colCenters[activePillarIndex] : 500;
-
-  const intelVisual = intelligencePillar
-    ? CATEGORY_VISUALS[intelligencePillar.targetCategoryId]
-    : undefined;
-  const IntelIcon = intelVisual?.icon || BrainCircuit;
-  const intelTheme = MODULE_COLOR_THEMES[intelVisual?.color || 'violet'];
-
-  const ecoVisual = ecosystemPillar
-    ? CATEGORY_VISUALS[ecosystemPillar.targetCategoryId]
-    : undefined;
-  const EcoIcon = ecoVisual?.icon || Layers;
+  const isIntelOrEcoActive =
+    activePillarId === 'arch-data-ai' || activePillarId === 'arch-platform';
 
   return (
     <section
       id="platform-architecture"
-      className="py-16 sm:py-20 bg-white border-b border-[#E8EDF2]"
+      className="py-16 sm:py-24 bg-[#EFF4F9] border-b border-[#D8E2EE]"
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-          <div>
-            <p className="text-xs sm:text-sm font-semibold text-[#158059] tracking-wide mb-2">
-              GOQii HealthEngage
-            </p>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-[#0F172A] tracking-tight">
+        {/* Editorial Header with Network Icon Identity */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-end mb-10 sm:mb-12">
+          <div className="lg:col-span-6 space-y-2">
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#158059] tracking-wide">
+              <SectionIcon className="w-4 h-4" strokeWidth={1.75} />
+              <span>GOQii HealthEngage</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-semibold text-[#0F172A] tracking-tight leading-tight">
               Platform Architecture
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-[#64748B] max-w-md">
-            Seven platform pillars connected across application capabilities, shared
-            intelligence, ecosystem integrations, and platform control.
-          </p>
+          <div className="lg:col-span-6 lg:flex lg:justify-end">
+            <p className="text-sm sm:text-base text-[#475569] max-w-lg">
+              Four connected layers showing how domain applications draw on shared
+              intelligence, external integrations, and platform governance.
+            </p>
+          </div>
         </div>
 
-        {/* Architectural Topology Matrix */}
-        <div className="bg-[#F8FAFB] bg-arch-grid border border-[#E8EDF2] rounded-2xl p-5 sm:p-8 lg:p-10">
+        {/* Custom Connected Systems Diagram */}
+        <div className="bg-white bg-arch-grid border border-[#D8E2EE] rounded-xl p-5 sm:p-8 lg:p-10">
           <div className="space-y-0">
-            {/* ROW 1: Business and application capabilities */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
-              <div className="lg:col-span-3 flex flex-col justify-center lg:pr-4">
+            {/* LAYER 01: Business and application capabilities */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-stretch">
+              <div className="lg:col-span-3 flex flex-col justify-center">
                 <span className="text-[11px] font-semibold text-[#158059] tabular-nums">
                   Layer 01
                 </span>
-                <h3 className="text-sm font-semibold text-[#0F172A] mt-0.5">
+                <h3 className="text-sm sm:text-base font-semibold text-[#0F172A] mt-0.5">
                   Business and application capabilities
                 </h3>
+                <p className="text-xs text-[#64748B] mt-1 leading-relaxed">
+                  Domain experiences powered by lower-layer services.
+                </p>
               </div>
 
-              <div className="lg:col-span-9 bg-white border border-[#E8EDF2] rounded-xl p-4 sm:p-5">
-                <div className="grid grid-cols-2 sm:grid-cols-6 lg:grid-cols-5 gap-3">
+              <div className="lg:col-span-9">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 bg-white border border-[#E8EDF2] rounded-xl overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-[#E8EDF2]">
                   {applicationPillars.map((pillar, index) => {
-                    const catVisual = CATEGORY_VISUALS[pillar.targetCategoryId] || {
-                      icon: Layers,
-                      color: 'emerald' as const,
-                    };
-                    const Icon = catVisual.icon;
-                    const theme = MODULE_COLOR_THEMES[catVisual.color];
                     const isActive = activePillarId === pillar.id;
-                    const spanClass =
-                      index < 3
-                        ? 'sm:col-span-2 lg:col-span-1'
-                        : index === 4
-                        ? 'col-span-2 sm:col-span-3 lg:col-span-1'
-                        : 'sm:col-span-3 lg:col-span-1';
+                    const PillarIcon =
+                      CATEGORY_VISUALS[pillar.targetCategoryId]?.icon || Layers;
+                    const catSummary = PLATFORM_CATEGORIES.find(
+                      (c) => c.id === pillar.targetCategoryId
+                    );
 
                     return (
                       <button
@@ -103,38 +100,41 @@ export const PlatformArchitectureSection: React.FC = () => {
                         onClick={() => setActivePillarId(pillar.id)}
                         onMouseEnter={() => setActivePillarId(pillar.id)}
                         aria-pressed={isActive}
-                        className={`group card-interactive text-left p-3.5 rounded-xl border cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A] ${spanClass} ${
+                        className={`group relative text-left p-4 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#2BC48A] ${
+                          index === 4 ? 'col-span-2 sm:col-span-1' : ''
+                        } ${
                           isActive
-                            ? 'bg-white border-[#2BC48A] ring-1 ring-[#2BC48A]/25'
-                            : 'bg-white border-[#E8EDF2] hover:border-[#2BC48A]/70'
+                            ? 'bg-[#0F172A] text-white'
+                            : 'bg-white text-[#0F172A] hover:bg-[#F8FAFB]'
                         }`}
                       >
-                        <div className="flex items-center justify-between gap-2 mb-2.5">
-                          <span
-                            className={`w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 transition-colors ${theme.iconBox} ${theme.iconBoxHover}`}
-                          >
-                            <Icon className="w-4 h-4" />
-                          </span>
-                          <span
-                            className={`h-1.5 w-4 rounded-full transition-colors ${
-                              isActive ? 'bg-[#2BC48A]' : 'bg-[#E2E8F0] group-hover:bg-[#CBD5E1]'
-                            }`}
-                            aria-hidden="true"
-                          />
-                        </div>
-                        <div className="flex items-center justify-between gap-1">
-                          <div className="text-sm font-semibold text-[#0F172A]">
-                            {pillar.label}
-                          </div>
-                          <ArrowRight
-                            className={`w-3.5 h-3.5 transition-transform ${
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <PillarIcon
+                            strokeWidth={1.75}
+                            className={`w-4 h-4 transition-colors ${
                               isActive
-                                ? 'text-[#158059] translate-x-0.5'
-                                : 'text-[#94A3B8] group-hover:text-[#0F172A] group-hover:translate-x-0.5'
+                                ? 'text-[#2BC48A]'
+                                : 'text-[#0F172A] group-hover:text-[#158059]'
                             }`}
-                            aria-hidden="true"
                           />
+                          <span
+                            className={`text-[11px] font-semibold tabular-nums ${
+                              isActive ? 'text-[#2BC48A]' : 'text-[#64748B]'
+                            }`}
+                          >
+                            0{index + 1}
+                          </span>
                         </div>
+                        <div className="text-sm font-semibold">{pillar.label}</div>
+                        {catSummary && (
+                          <div
+                            className={`text-[11px] mt-1 tabular-nums ${
+                              isActive ? 'text-slate-300' : 'text-[#64748B]'
+                            }`}
+                          >
+                            {catSummary.moduleCountLabel}
+                          </div>
+                        )}
                       </button>
                     );
                   })}
@@ -142,56 +142,96 @@ export const PlatformArchitectureSection: React.FC = () => {
               </div>
             </div>
 
-            {/* SVG Vertical Routing Matrix: Layer 1 -> Layer 2 */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6" aria-hidden="true">
+            {/* Structured Orthogonal Connector: Layer 01 -> Layer 02 */}
+            <div
+              className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8"
+              aria-hidden="true"
+            >
               <div className="hidden lg:block lg:col-span-3" />
               <div className="lg:col-span-9">
-                <div className="hidden lg:block h-9 px-5">
+                <div className="hidden lg:block h-11">
                   <svg
-                    viewBox="0 0 1000 36"
+                    viewBox="0 0 1000 44"
                     fill="none"
-                    className="w-full h-9"
+                    className="w-full h-11"
                     preserveAspectRatio="none"
                   >
                     {colCenters.map((cx) => (
                       <line
-                        key={`p1-${cx}`}
+                        key={`bus-${cx}`}
                         x1={cx}
                         y1="0"
                         x2={cx}
-                        y2="36"
+                        y2="22"
                         stroke="#CBD5E1"
                         strokeWidth="1.5"
-                        strokeDasharray="4 4"
                       />
                     ))}
                     <line
-                      x1={activeTraceX}
-                      y1="0"
-                      x2={activeTraceX}
-                      y2="36"
-                      stroke="#2BC48A"
-                      strokeWidth="2.5"
+                      x1="100"
+                      y1="22"
+                      x2="900"
+                      y2="22"
+                      stroke="#CBD5E1"
+                      strokeWidth="1.5"
                     />
-                    <circle cx={activeTraceX} cy="18" r="3.5" fill="#2BC48A" />
+                    <line
+                      x1="500"
+                      y1="22"
+                      x2="500"
+                      y2="44"
+                      stroke="#CBD5E1"
+                      strokeWidth="1.5"
+                    />
+                    {!isIntelOrEcoActive && (
+                      <>
+                        <motion.path
+                          key={`trace-${activePillar.id}`}
+                          d={`M ${activeTraceX} 0 V 22 H 500 V 44`}
+                          stroke="#2BC48A"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          initial={
+                            prefersReducedMotion
+                              ? false
+                              : { pathLength: 0.2, opacity: 0.5 }
+                          }
+                          animate={{ pathLength: 1, opacity: 1 }}
+                          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        />
+                        <circle cx={activeTraceX} cy="22" r="4" fill="#2BC48A" />
+                      </>
+                    )}
+                    <circle
+                      cx="500"
+                      cy="22"
+                      r="4"
+                      fill="#0F172A"
+                      stroke="#2BC48A"
+                      strokeWidth="2"
+                    />
                   </svg>
                 </div>
                 <div className="lg:hidden flex justify-center py-2">
-                  <div className="w-px h-5 bg-[#2BC48A]" />
+                  <div className="w-px h-6 bg-[#2BC48A]" />
                 </div>
               </div>
             </div>
 
-            {/* ROW 2: Shared data and AI */}
+            {/* LAYER 02: Shared data and AI */}
             {intelligencePillar && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
-                <div className="lg:col-span-3 flex flex-col justify-center lg:pr-4">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-stretch">
+                <div className="lg:col-span-3 flex flex-col justify-center">
                   <span className="text-[11px] font-semibold text-[#158059] tabular-nums">
                     Layer 02
                   </span>
-                  <h3 className="text-sm font-semibold text-[#0F172A] mt-0.5">
+                  <h3 className="text-sm sm:text-base font-semibold text-[#0F172A] mt-0.5">
                     Shared data and AI
                   </h3>
+                  <p className="text-xs text-[#64748B] mt-1 leading-relaxed">
+                    Common intelligence plane across every workflow.
+                  </p>
                 </div>
 
                 <div className="lg:col-span-9">
@@ -200,34 +240,50 @@ export const PlatformArchitectureSection: React.FC = () => {
                     onClick={() => setActivePillarId(intelligencePillar.id)}
                     onMouseEnter={() => setActivePillarId(intelligencePillar.id)}
                     aria-pressed={activePillarId === intelligencePillar.id}
-                    className={`group card-interactive w-full text-left bg-white rounded-xl p-5 border cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A] ${
+                    className={`group w-full text-left rounded-xl p-5 border transition-colors cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A] ${
                       activePillarId === intelligencePillar.id
-                        ? 'border-[#2BC48A] ring-1 ring-[#2BC48A]/25'
-                        : 'border-[#E8EDF2] hover:border-[#2BC48A]/70'
+                        ? 'bg-[#0F172A] text-white border-[#0F172A]'
+                        : 'bg-white text-[#0F172A] border-[#E8EDF2] hover:border-[#2BC48A]'
                     }`}
                   >
-                    <div className="flex items-center gap-3.5">
+                    <div className="flex items-start sm:items-center gap-3.5">
                       <span
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 transition-colors ${intelTheme.iconBox} ${intelTheme.iconBoxHover}`}
+                        className={`w-10 h-10 rounded-lg border flex items-center justify-center shrink-0 transition-colors ${
+                          activePillarId === intelligencePillar.id
+                            ? 'bg-[#2BC48A]/15 border-[#2BC48A]/40 text-[#2BC48A]'
+                            : 'bg-[#F8FAFB] border-[#E8EDF2] text-[#158059]'
+                        }`}
                       >
-                        <IntelIcon className="w-5 h-5" />
+                        <BrainCircuit className="w-5 h-5" strokeWidth={1.75} />
                       </span>
                       <div>
-                        <div className="text-base font-semibold text-[#0F172A]">
+                        <div className="text-base font-semibold">
                           {intelligencePillar.label}
                         </div>
-                        <div className="text-xs text-[#64748B] mt-0.5">
-                          Data platforms and AI engines powering intelligence across GOQii HealthEngage
+                        <div
+                          className={`text-xs mt-0.5 leading-relaxed ${
+                            activePillarId === intelligencePillar.id
+                              ? 'text-slate-300'
+                              : 'text-[#64748B]'
+                          }`}
+                        >
+                          Ingests signals from Layer 01 applications and feeds AI,
+                          predictions, and analytics back into workflows
                         </div>
                       </div>
                     </div>
 
                     <span
-                      className={`inline-flex items-center gap-1.5 text-xs font-semibold whitespace-nowrap ${intelTheme.textAccent}`}
+                      className={`inline-flex items-center gap-1.5 text-xs font-semibold whitespace-nowrap tabular-nums shrink-0 ${
+                        activePillarId === intelligencePillar.id
+                          ? 'text-[#2BC48A]'
+                          : 'text-[#158059]'
+                      }`}
                     >
                       5 modules · 3 subgroups
                       <ArrowRight
                         className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
+                        strokeWidth={1.75}
                         aria-hidden="true"
                       />
                     </span>
@@ -236,33 +292,63 @@ export const PlatformArchitectureSection: React.FC = () => {
               </div>
             )}
 
-            {/* SVG Vertical Routing Matrix: Layer 2 -> Layer 3 & 4 */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6" aria-hidden="true">
+            {/* Structured Connector: Layer 02 -> Layer 03 & 04 */}
+            <div
+              className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8"
+              aria-hidden="true"
+            >
               <div className="hidden lg:block lg:col-span-3" />
               <div className="lg:col-span-9">
-                <div className="hidden lg:block h-9 px-5">
+                <div className="hidden lg:block h-11">
                   <svg
-                    viewBox="0 0 1000 36"
+                    viewBox="0 0 1000 44"
                     fill="none"
-                    className="w-full h-9"
+                    className="w-full h-11"
                     preserveAspectRatio="none"
                   >
-                    <line x1="250" y1="0" x2="250" y2="36" stroke="#CBD5E1" strokeWidth="1.5" strokeDasharray="4 4" />
-                    <line x1="500" y1="0" x2="500" y2="36" stroke="#2BC48A" strokeWidth="2.5" />
-                    <line x1="750" y1="0" x2="750" y2="36" stroke="#CBD5E1" strokeWidth="1.5" strokeDasharray="4 4" />
-                    <circle cx="500" cy="18" r="3.5" fill="#2BC48A" />
+                    <line
+                      x1="250"
+                      y1="0"
+                      x2="250"
+                      y2="44"
+                      stroke="#CBD5E1"
+                      strokeWidth="1.5"
+                      strokeDasharray="4 4"
+                    />
+                    <motion.line
+                      key={`eco-line-${activePillar.id}`}
+                      x1="500"
+                      y1="0"
+                      x2="500"
+                      y2="44"
+                      stroke="#2BC48A"
+                      strokeWidth="2.5"
+                      initial={prefersReducedMotion ? false : { pathLength: 0.3 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    />
+                    <line
+                      x1="750"
+                      y1="0"
+                      x2="750"
+                      y2="44"
+                      stroke="#CBD5E1"
+                      strokeWidth="1.5"
+                      strokeDasharray="4 4"
+                    />
+                    <circle cx="500" cy="22" r="4" fill="#2BC48A" />
                   </svg>
                 </div>
                 <div className="lg:hidden flex justify-center py-2">
-                  <div className="w-px h-5 bg-[#2BC48A]" />
+                  <div className="w-px h-6 bg-[#2BC48A]" />
                 </div>
               </div>
             </div>
 
-            {/* ROW 3 & 4: Integration and device ecosystem + Platform control and orchestration */}
+            {/* LAYER 03 & 04: Ecosystem & Control Planes */}
             {ecosystemPillar && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
-                <div className="lg:col-span-3 flex flex-col justify-center lg:pr-4 space-y-2">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-stretch">
+                <div className="lg:col-span-3 flex flex-col justify-center space-y-3">
                   <div>
                     <span className="text-[11px] font-semibold text-[#158059] tabular-nums">
                       Layer 03
@@ -271,7 +357,7 @@ export const PlatformArchitectureSection: React.FC = () => {
                       Integration and device ecosystem
                     </h3>
                   </div>
-                  <div>
+                  <div className="pt-2 border-t border-[#E8EDF2]">
                     <span className="text-[11px] font-semibold text-[#158059] tabular-nums">
                       Layer 04
                     </span>
@@ -287,45 +373,72 @@ export const PlatformArchitectureSection: React.FC = () => {
                     onClick={() => setActivePillarId(ecosystemPillar.id)}
                     onMouseEnter={() => setActivePillarId(ecosystemPillar.id)}
                     aria-pressed={activePillarId === ecosystemPillar.id}
-                    className={`group card-interactive-dark w-full text-left bg-[#0B1220] text-white rounded-xl p-5 sm:p-6 border cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A] ${
+                    className={`group w-full text-left bg-[#0B1220] text-white rounded-xl border transition-colors cursor-pointer overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A] ${
                       activePillarId === ecosystemPillar.id
-                        ? 'border-[#2BC48A] ring-1 ring-[#2BC48A]/40'
+                        ? 'border-[#2BC48A]'
                         : 'border-[#0F172A] hover:border-[#2BC48A]/70'
                     }`}
                   >
-                    <div className="flex items-center gap-3.5">
-                      <span className="w-10 h-10 rounded-xl bg-[#2BC48A] text-[#0F172A] flex items-center justify-center shrink-0">
-                        <EcoIcon className="w-5 h-5" />
-                      </span>
-                      <div>
-                        <div className="text-base font-semibold text-white">
-                          {ecosystemPillar.label}
-                        </div>
-                        <div className="text-xs text-slate-300 mt-0.5">
-                          APIs, devices, integrations, and control planes for the broader ecosystem
+                    <div className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10">
+                      <div className="flex items-start sm:items-center gap-3.5">
+                        <span className="w-10 h-10 rounded-lg bg-[#2BC48A]/15 border border-[#2BC48A]/35 flex items-center justify-center shrink-0 text-[#2BC48A]">
+                          <Cable className="w-5 h-5" strokeWidth={1.75} />
+                        </span>
+                        <div>
+                          <div className="text-base font-semibold text-white">
+                            {ecosystemPillar.label}
+                          </div>
+                          <div className="text-xs text-slate-300 mt-0.5 leading-relaxed">
+                            Bridges external devices and enterprise systems at the base
+                            while enforcing APIs, routing, and tenant governance upward
+                          </div>
                         </div>
                       </div>
+
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2BC48A] whitespace-nowrap tabular-nums shrink-0">
+                        7 modules · 4 subgroups
+                        <ArrowRight
+                          className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
+                          strokeWidth={1.75}
+                          aria-hidden="true"
+                        />
+                      </span>
                     </div>
 
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2BC48A] whitespace-nowrap tabular-nums">
-                      7 modules · 4 subgroups
-                      <ArrowRight
-                        className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
-                        aria-hidden="true"
-                      />
-                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-white/10 text-xs">
+                      <div className="px-5 py-3 flex items-center justify-between gap-3">
+                        <span className="inline-flex items-center gap-2 text-slate-300">
+                          <Cable className="w-3.5 h-3.5 text-[#2BC48A]" strokeWidth={1.75} />
+                          Layer 03 · Ecosystem
+                        </span>
+                        <span className="font-medium text-white">
+                          API Center · Device Hub · Integrations
+                        </span>
+                      </div>
+                      <div className="px-5 py-3 flex items-center justify-between gap-3">
+                        <span className="inline-flex items-center gap-2 text-slate-300">
+                          <Shield className="w-3.5 h-3.5 text-[#2BC48A]" strokeWidth={1.75} />
+                          Layer 04 · Control
+                        </span>
+                        <span className="font-medium text-white">
+                          Admin · Dashboards · Triage · CallIQ
+                        </span>
+                      </div>
+                    </div>
                   </button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Interactive Selected Pillar Summary Footer */}
+          {/* Interactive Layer Relationship Specification Footer */}
           {activeCategorySummary && (
-            <div className="mt-6 pt-5 border-t border-[#E8EDF2] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white rounded-xl p-4 sm:px-5 border">
-              <div className="space-y-1">
-                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#158059] tabular-nums">
-                  <span>{activeCategorySummary.number}</span>
+            <div className="mt-8 pt-6 border-t border-[#E8EDF2] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1 max-w-3xl">
+                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold tabular-nums">
+                  <span className="text-[#158059]">
+                    {activeCategorySummary.number}
+                  </span>
                   <span aria-hidden="true" className="text-[#CBD5E1]">
                     ·
                   </span>
@@ -338,17 +451,17 @@ export const PlatformArchitectureSection: React.FC = () => {
                     {activeCategorySummary.subgroupCountLabel}
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-[#64748B]">
-                  {activeCategorySummary.description}
+                <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
+                  {activePillar.layerConnection}
                 </p>
               </div>
 
               <a
                 href={`#${activeCategorySummary.id}`}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-[#0F172A] bg-[#2BC48A] hover:bg-[#24B07B] rounded-lg transition-colors whitespace-nowrap shrink-0"
+                className="group inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold text-[#0F172A] bg-[#2BC48A] hover:bg-[#24B07B] rounded-lg transition-colors whitespace-nowrap shrink-0"
               >
                 Explore {activePillar.label}
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" strokeWidth={1.75} />
               </a>
             </div>
           )}

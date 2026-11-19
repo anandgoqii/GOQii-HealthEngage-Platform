@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { BrandMark } from './BrandMark';
 import { PLATFORM_CATEGORIES } from '../data/platformData';
+import { SECTION_VISUALS } from '../data/moduleVisuals';
 import type { PageRoute } from './GovernancePages';
 
 interface EnterpriseCtaAndFooterProps {
@@ -20,57 +21,75 @@ export const EnterpriseCtaSection: React.FC<EnterpriseCtaAndFooterProps> = ({
   onOpenContact,
   onOpenSignIn,
 }) => {
+  const PartnershipIcon = SECTION_VISUALS.cta;
+  const ContactCueIcon = SECTION_VISUALS.contactCue;
+
   return (
     <section
       id="enterprise-cta"
-      className="bg-[#0B1220] bg-arch-grid-dark text-white py-16 sm:py-20 border-b border-white/10"
+      className="bg-[#0D3B2E] bg-arch-grid-dark text-white py-16 sm:py-24 border-b border-white/10"
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl space-y-5">
-          <p className="text-xs sm:text-sm font-semibold text-[#2BC48A] tracking-wide">
-            Enterprise & Partnerships
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Left Editorial Proposition with Handshake Icon Identity */}
+          <div className="lg:col-span-7 space-y-5">
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#2BC48A] tracking-wide">
+              <PartnershipIcon className="w-4 h-4" strokeWidth={1.75} />
+              <span>Enterprise &amp; Partnerships</span>
+            </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight leading-tight text-balance">
-            Let’s architect connected health for your enterprise.
-          </h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-white tracking-tight leading-[1.12] text-balance">
+              Let’s architect connected health for your enterprise.
+            </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
-            Partner with GOQii HealthEngage to deploy a platform purpose-built for care
-            delivery, engagement, insurance, pharma, and ecosystem integrations — with the
-            security, scale, and interoperability your organization demands.
-          </p>
-
-          <div className="pt-3 flex flex-wrap items-center gap-3.5">
-            <button
-              type="button"
-              onClick={() => onOpenContact('briefing')}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-[#0F172A] bg-[#2BC48A] hover:bg-[#24B07B] rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
-              Request a briefing
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => onOpenContact('partnership')}
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#2BC48A] rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A]"
-            >
-              Talk to partnerships
-            </button>
+            <p className="text-sm sm:text-base text-emerald-100/85 leading-relaxed max-w-2xl">
+              Partner with GOQii HealthEngage to deploy a platform purpose-built for care
+              delivery, engagement, insurance, pharma, and ecosystem integrations — with
+              the security, scale, and interoperability your organization demands.
+            </p>
           </div>
 
-          <div className="pt-1">
-            <button
-              type="button"
-              onClick={onOpenSignIn}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2BC48A] rounded"
-            >
-              <span>Existing customer? Sign in</span>
-              <span aria-hidden="true" className="text-[#2BC48A]">
-                →
-              </span>
-            </button>
+          {/* Right Structured Conversion Panel */}
+          <div className="lg:col-span-5">
+            <div className="border border-white/15 bg-[#092B22]/80 rounded-xl p-6 sm:p-8 space-y-5">
+              <div className="flex items-center gap-2.5 text-xs font-medium text-emerald-100 pb-3 border-b border-white/15">
+                <ContactCueIcon className="w-4 h-4 text-[#2BC48A]" strokeWidth={1.75} />
+                <span>Connect with our enterprise architecture team</span>
+              </div>
+
+              <div className="space-y-3">
+                <button
+                  type="button"
+                  onClick={() => onOpenContact('briefing')}
+                  className="group w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-[#0F172A] bg-[#2BC48A] hover:bg-[#24B07B] rounded-lg transition-colors whitespace-nowrap cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  Request a briefing
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={1.75} />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => onOpenContact('partnership')}
+                  className="w-full inline-flex items-center justify-center px-6 py-3.5 text-sm font-semibold text-white bg-white/8 hover:bg-white/14 border border-white/20 hover:border-[#2BC48A] rounded-lg transition-colors whitespace-nowrap cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A]"
+                >
+                  Talk to partnerships
+                </button>
+              </div>
+
+              <div className="pt-4 border-t border-white/15 flex items-center justify-between gap-3">
+                <span className="text-xs text-emerald-100/75">
+                  Enterprise SSO portal
+                </span>
+                <button
+                  type="button"
+                  onClick={onOpenSignIn}
+                  className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-white hover:text-[#2BC48A] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2BC48A] rounded"
+                >
+                  <span>Existing customer? Sign in</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#2BC48A] group-hover:translate-x-0.5 transition-transform" strokeWidth={1.75} aria-hidden="true" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -97,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="bg-[#0B1220] text-slate-300 py-12 sm:py-16">
+    <footer className="bg-[#070C15] text-slate-300 py-12 sm:py-16">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 pb-10 border-b border-white/10">
           {/* Brand Column */}
@@ -322,7 +341,9 @@ export const Footer: React.FC<FooterProps> = ({
 
         <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-400">
           <p>© {new Date().getFullYear()} GOQii HealthEngage. All rights reserved.</p>
-          <p className="tabular-nums">7 Platform categories · 60+ Modules & services · FHIR/HL7 Standards-ready</p>
+          <p className="tabular-nums">
+            7 Platform categories · 60+ Modules &amp; services · FHIR/HL7 Standards-ready
+          </p>
         </div>
       </div>
     </footer>

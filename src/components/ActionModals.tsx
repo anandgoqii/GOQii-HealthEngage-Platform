@@ -308,7 +308,7 @@ export const ModuleDetailModal: React.FC<ModuleDetailModalProps> = ({
             <span
               className={`w-11 h-11 rounded-xl border flex items-center justify-center shrink-0 ${theme.iconBox}`}
             >
-              <ModIcon className="w-5 h-5" />
+              <ModIcon className="w-5 h-5" strokeWidth={1.75} />
             </span>
             <div>
               <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-[#64748B]">

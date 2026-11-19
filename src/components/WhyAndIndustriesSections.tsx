@@ -2,103 +2,103 @@ import React from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
-  Blocks,
   Building2,
   Check,
-  Code2,
-  Cpu,
-  FlaskConical,
-  GitBranch,
-  Globe,
-  Shield,
   ShieldCheck,
-  Sparkles,
-  Users,
 } from 'lucide-react';
 import { INDUSTRIES, WHY_CAPABILITIES } from '../data/platformData';
-
-const CAPABILITY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  'api-first': Code2,
-  'device-interop': Cpu,
-  'care-orchestration': GitBranch,
-  'ai-workflows': Sparkles,
-  'enterprise-security': Shield,
-  'modular-deployment': Blocks,
-};
+import {
+  INDUSTRY_VISUALS,
+  SECTION_VISUALS,
+  WHY_OUTCOME_VISUALS,
+} from '../data/moduleVisuals';
 
 const CAPABILITY_LINKS: Record<string, string> = {
   'api-first': '#category-07',
-  'device-interop': '#category-07',
+  'device-interop': '#category-02',
   'care-orchestration': '#category-01',
   'ai-workflows': '#category-06',
   'enterprise-security': '#platform-overview',
   'modular-deployment': '#platform-categories',
 };
 
-const INDUSTRY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  insurers: ShieldCheck,
-  'hospitals-clinics': Building2,
-  pharma: FlaskConical,
-  employers: Users,
-  'health-platforms': Globe,
-};
-
 export const WhyGoqiiSection: React.FC = () => {
+  const SectionIcon = SECTION_VISUALS.why;
+
   return (
     <section
       id="why-goqii-healthengage"
-      className="py-16 sm:py-20 bg-[#F8FAFB] border-b border-[#E8EDF2]"
+      className="py-16 sm:py-24 bg-[#0B1220] text-white border-b border-white/10"
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl space-y-3 mb-10 sm:mb-12">
-          <p className="text-xs sm:text-sm font-semibold text-[#158059] tracking-wide">
-            Why GOQii HealthEngage
-          </p>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-semibold text-[#0F172A] tracking-tight leading-tight text-balance">
-            Built like a platform. Deployed like a product.
-          </h2>
-          <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
-            GOQii HealthEngage is designed for the realities of modern health enterprises
-            — composable, compliant, and operationally sound at national scale.
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          {/* Left Sticky Editorial Column with ShieldCheck Identity */}
+          <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-4">
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#2BC48A] tracking-wide">
+              <SectionIcon className="w-4 h-4" strokeWidth={1.75} />
+              <span>Why GOQii HealthEngage</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-semibold text-white tracking-tight leading-[1.14] text-balance">
+              Built like a platform. Deployed like a product.
+            </h2>
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+              Built for health enterprises that need connected operations, clearer
+              visibility across care journeys, and workflows that scale across
+              populations.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {WHY_CAPABILITIES.map((cap) => {
-            const Icon = CAPABILITY_ICONS[cap.id] || Code2;
-            const targetHref = CAPABILITY_LINKS[cap.id] || '#module-architecture';
+          {/* Right 2-Column Hairline-Divided Business Outcomes Matrix */}
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 bg-white/10 gap-px border border-white/10 rounded-xl overflow-hidden">
+              {WHY_CAPABILITIES.map((cap, idx) => {
+                const targetHref = CAPABILITY_LINKS[cap.id] || '#module-architecture';
+                const OutcomeIcon = WHY_OUTCOME_VISUALS[cap.id] || ShieldCheck;
 
-            return (
-              <a
-                key={cap.id}
-                href={targetHref}
-                className="group card-interactive bg-white border border-[#E8EDF2] hover:border-[#2BC48A] rounded-2xl p-6 flex flex-col justify-between focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A]"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-3 mb-5">
-                    <span className="w-11 h-11 rounded-xl bg-[#2BC48A]/12 border border-[#2BC48A]/25 text-[#158059] group-hover:bg-[#2BC48A] group-hover:text-[#0F172A] flex items-center justify-center transition-colors">
-                      <Icon className="w-5 h-5" />
-                    </span>
-                    <ArrowUpRight
-                      className="w-4 h-4 text-[#94A3B8] group-hover:text-[#158059] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold text-[#0F172A] leading-snug">
-                    {cap.title}
-                  </h3>
-                  <p className="text-sm text-[#64748B] leading-relaxed mt-2.5">
-                    {cap.description}
-                  </p>
-                </div>
+                return (
+                  <a
+                    key={cap.id}
+                    href={targetHref}
+                    className="group bg-[#0B1220] hover:bg-[#111B2E] p-6 sm:p-7 flex flex-col justify-between gap-6 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#2BC48A]"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-3 mb-5">
+                        <div className="flex items-center gap-3">
+                          <span className="w-9 h-9 rounded-lg bg-white/5 border border-white/12 text-white group-hover:bg-[#2BC48A] group-hover:border-[#2BC48A] group-hover:text-[#0F172A] flex items-center justify-center transition-colors">
+                            <OutcomeIcon className="w-4 h-4" strokeWidth={1.75} />
+                          </span>
+                          <span className="text-xs font-semibold text-[#2BC48A] tabular-nums">
+                            0{idx + 1}
+                          </span>
+                        </div>
+                        <ArrowUpRight
+                          className="w-4 h-4 text-slate-500 group-hover:text-[#2BC48A] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                          strokeWidth={1.75}
+                          aria-hidden="true"
+                        />
+                      </div>
 
-                <div className="pt-4 mt-5 border-t border-[#F1F5F9] flex items-center justify-between text-xs font-semibold text-[#158059]">
-                  <span>View in architecture</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </div>
-              </a>
-            );
-          })}
+                      <h3 className="text-lg font-semibold text-white leading-snug">
+                        {cap.title}
+                      </h3>
+
+                      <p className="text-sm text-slate-300 leading-relaxed mt-2.5">
+                        {cap.description}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#2BC48A]">
+                      <span>Explore capability</span>
+                      <ArrowRight
+                        className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
+                        strokeWidth={1.75}
+                      />
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -112,71 +112,77 @@ interface IndustriesSectionProps {
 export const IndustriesSection: React.FC<IndustriesSectionProps> = ({
   onSelectIndustry,
 }) => {
+  const SectionIcon = SECTION_VISUALS.industries;
+
   return (
     <section
       id="industries"
-      className="py-16 sm:py-20 bg-white border-b border-[#E8EDF2]"
+      className="py-16 sm:py-24 bg-[#EEF3F8] border-b border-[#D7E2EC]"
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl space-y-3 mb-10 sm:mb-12">
-          <p className="text-xs sm:text-sm font-semibold text-[#158059] tracking-wide">
-            Industries
-          </p>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-semibold text-[#0F172A] tracking-tight leading-tight text-balance">
-            One platform. Five enterprise contexts.
-          </h2>
-          <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
-            GOQii HealthEngage powers production deployments across insurers, providers,
-            pharma, employers, and digital health platforms — each with tailored
-            configurations and integrations.
-          </p>
+        {/* Editorial Heading with Building2 Icon Identity */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-end mb-12">
+          <div className="lg:col-span-6 space-y-2">
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#158059] tracking-wide">
+              <SectionIcon className="w-4 h-4" strokeWidth={1.75} />
+              <span>Industries</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-semibold text-[#0F172A] tracking-tight leading-tight text-balance">
+              One platform. Five enterprise contexts.
+            </h2>
+          </div>
+          <div className="lg:col-span-6">
+            <p className="text-sm sm:text-base text-[#475569] leading-relaxed">
+              GOQii HealthEngage powers production deployments across insurers, providers,
+              pharma, employers, and digital health platforms — each with tailored
+              configurations and integrations.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5">
+        {/* Structured Horizontal Enterprise Rows with Distinctive Industry Icons */}
+        <div className="border-y border-[#D7E2EC] divide-y divide-[#D7E2EC]">
           {INDUSTRIES.map((industry, index) => {
-            const Icon = INDUSTRY_ICONS[industry.id] || Building2;
-            const spanClass =
-              index < 3
-                ? 'lg:col-span-2'
-                : index === 4
-                ? 'md:col-span-2 lg:col-span-3'
-                : 'lg:col-span-3';
+            const Icon = INDUSTRY_VISUALS[industry.id] || Building2;
 
             return (
-              <button
+              <div
                 key={industry.id}
-                type="button"
-                onClick={() => onSelectIndustry(industry.title)}
-                className={`group card-interactive h-full text-left bg-white border border-[#E8EDF2] hover:border-[#2BC48A] rounded-2xl p-6 flex flex-col justify-between cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2BC48A] ${spanClass}`}
+                className="group py-7 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start transition-colors hover:bg-white -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-lg"
               >
-                <div className="w-full">
-                  <div className="flex items-center justify-between gap-3 mb-5">
-                    <span className="w-11 h-11 rounded-xl bg-[#2BC48A]/14 border border-[#2BC48A]/25 text-[#158059] group-hover:bg-[#2BC48A] group-hover:text-[#0F172A] flex items-center justify-center transition-colors">
-                      <Icon className="w-5 h-5" />
+                {/* Zone 1: Index, Domain Icon & Title */}
+                <div className="lg:col-span-4 flex items-start gap-4">
+                  <span className="text-xs font-semibold text-[#158059] tabular-nums pt-2.5 shrink-0">
+                    0{index + 1}
+                  </span>
+                  <div className="flex items-start gap-3">
+                    <span className="w-10 h-10 rounded-lg bg-white border border-[#D7E2EC] text-[#0F172A] group-hover:bg-[#2BC48A] group-hover:border-[#2BC48A] group-hover:text-[#0F172A] flex items-center justify-center shrink-0 transition-colors">
+                      <Icon className="w-5 h-5" strokeWidth={1.75} aria-hidden="true" />
                     </span>
-                    <span className="text-xs font-semibold text-[#64748B] tabular-nums">
-                      0{index + 1}
-                    </span>
+                    <h3 className="text-lg sm:text-xl font-semibold text-[#0F172A] leading-snug pt-1.5">
+                      {industry.title}
+                    </h3>
                   </div>
+                </div>
 
-                  <h3 className="text-lg font-semibold text-[#0F172A] leading-snug">
-                    {industry.title}
-                  </h3>
-
-                  <p className="text-sm text-[#64748B] leading-relaxed mt-2.5">
+                {/* Zone 2: Description */}
+                <div className="lg:col-span-4">
+                  <p className="text-sm text-[#475569] leading-relaxed">
                     {industry.description}
                   </p>
                 </div>
 
-                <div className="w-full mt-6 pt-5 border-t border-[#E8EDF2]">
-                  <ul className="space-y-2">
+                {/* Zone 3: Highlights & Action */}
+                <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col xl:flex-row sm:items-center lg:items-start xl:items-center justify-between gap-4">
+                  <ul className="space-y-1.5">
                     {industry.highlights.map((highlight) => (
                       <li
                         key={highlight}
-                        className="flex items-center gap-2.5 text-xs sm:text-[13px] font-medium text-[#0F172A]"
+                        className="flex items-center gap-2 text-xs sm:text-[13px] font-medium text-[#0F172A]"
                       >
                         <Check
-                          className="w-4 h-4 text-[#158059] shrink-0"
+                          className="w-3.5 h-3.5 text-[#158059] shrink-0"
+                          strokeWidth={1.75}
                           aria-hidden="true"
                         />
                         <span>{highlight}</span>
@@ -184,12 +190,16 @@ export const IndustriesSection: React.FC<IndustriesSectionProps> = ({
                     ))}
                   </ul>
 
-                  <div className="pt-4 mt-4 border-t border-[#F1F5F9] flex items-center justify-between text-xs font-semibold text-[#158059]">
-                    <span>Request briefing</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => onSelectIndustry(industry.title)}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-[#0F172A] bg-white border border-[#D7E2EC] group-hover:border-[#2BC48A] group-hover:bg-[#2BC48A] rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer self-start sm:self-center lg:self-start xl:self-center"
+                  >
+                    Request briefing
+                    <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.75} />
+                  </button>
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>

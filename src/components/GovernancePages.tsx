@@ -13,6 +13,7 @@ import {
   KeyRound,
   Layers,
   Lock,
+  type LucideIcon,
   Mail,
   Network,
   Server,
@@ -107,7 +108,7 @@ const PageShellHeader: React.FC<{
                 key={item}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/15 text-xs font-medium text-slate-200"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2BC48A]" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#2BC48A] shrink-0" strokeWidth={1.75} />
                 {item}
               </span>
             ))}
@@ -219,7 +220,7 @@ export const SecurityPage: React.FC<{
                 >
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <span className="w-11 h-11 rounded-xl bg-[#2BC48A]/12 border border-[#2BC48A]/25 text-[#158059] flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5" />
+                      <Icon className="w-5 h-5" strokeWidth={1.75} />
                     </span>
                     <span className="text-xs font-semibold text-[#64748B] bg-[#F8FAFB] border border-[#E8EDF2] px-2.5 py-1 rounded-md">
                       {pillar.tag}
@@ -396,7 +397,7 @@ export const TrustPage: React.FC<{
                   className="bg-white border border-[#E8EDF2] hover:border-[#2BC48A] rounded-2xl p-6 sm:p-7 card-interactive"
                 >
                   <span className="w-11 h-11 rounded-xl bg-[#2BC48A]/12 border border-[#2BC48A]/25 text-[#158059] flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-5 h-5" strokeWidth={1.75} />
                   </span>
                   <h3 className="text-lg font-semibold text-[#0F172A] mb-2">
                     {item.title}
@@ -551,7 +552,7 @@ export const PrivacyPage: React.FC<{
                   className="bg-white border border-[#E8EDF2] hover:border-[#2BC48A] rounded-2xl p-6 sm:p-7 card-interactive"
                 >
                   <span className="w-11 h-11 rounded-xl bg-[#2BC48A]/12 border border-[#2BC48A]/25 text-[#158059] flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-5 h-5" strokeWidth={1.75} />
                   </span>
                   <h3 className="text-lg font-semibold text-[#0F172A] mb-2">
                     {item.title}
@@ -644,7 +645,7 @@ export const ContactPage: React.FC<{
 
   const routingTracks: {
     track: ContactInquiryTrack;
-    icon: React.ComponentType<{ className?: string }>;
+    icon: LucideIcon;
     description: string;
   }[] = [
     {
@@ -746,7 +747,7 @@ export const ContactPage: React.FC<{
                               : 'bg-[#F8FAFB] border-[#E8EDF2] text-[#64748B]'
                           }`}
                         >
-                          <Icon className="w-5 h-5" />
+                          <Icon className="w-5 h-5" strokeWidth={1.75} />
                         </span>
                         <div className="min-w-0">
                           <div className="flex items-center justify-between gap-2">
