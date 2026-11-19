@@ -1,0 +1,8 @@
+{
+  "name": "Remix GOQii HealthEngage",
+  "description": "Connected Health Enterprise SaaS Platform — unified care delivery, remote monitoring, member engagement, insurance operations, pharma support programs, AI, APIs, and device interoperability.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
